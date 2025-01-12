@@ -135,6 +135,6 @@
 	</dependencies>
 
 	<build>
-		<finalName>mysite03</finalName>
+		<finalName>jblog03</finalName>
 	</build>
 </project>

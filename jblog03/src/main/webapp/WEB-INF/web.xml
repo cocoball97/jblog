@@ -5,6 +5,17 @@
 	version="6.0">
 	<display-name>jblog03</display-name>
 	
+	<!-- Context Parameter -->
+	<context-param>
+	     <param-name>contextConfigLocation</param-name>
+	     <param-value>classpath:applicationContext.xml</param-value>
+	</context-param>
+	
+	<!-- ContextLoad Listener -->	
+	<listener>
+	    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
 	<!-- Dispatcher Servlet -->
 	<servlet>
 		<servlet-name>spring</servlet-name>

@@ -5,6 +5,10 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
+	<modules>
+		<module>jblog03</module>
+	</modules>
+	
 	<build>
 		<plugins>
 			<plugin>
@@ -18,8 +22,5 @@
 			</plugin>
 		</plugins>
 	</build>
-	
-	<modules>
-		<module>jblog03</module>
-	</modules>
+
 </project>

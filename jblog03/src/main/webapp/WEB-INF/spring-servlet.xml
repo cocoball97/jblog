@@ -14,6 +14,29 @@
 
 	<mvc:default-servlet-handler />
 	
+	<!-- Interceptors -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/user/auth" />
+			<bean class="jblog.security.LoginInterceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/user/logout" />
+			<bean class="jblog.security.LogoutInterceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/user/auth"/>
+			<mvc:exclude-mapping path="/user/logout"/>
+			<mvc:exclude-mapping path="/assets/**"/>
+			<bean class="jblog.security.AuthInterceptor" />
+		</mvc:interceptor>
+
+	<!-- 로케일 인터셉터 제외함 -->
+
+	</mvc:interceptors>
+	
+	<!-- View Resolver -->
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 	   <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
 	   <property name="prefix" value="/WEB-INF/views/" />
