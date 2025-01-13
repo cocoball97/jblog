@@ -7,7 +7,7 @@
 		<![CDATA[
 		insert
 		  into user
-		values (#{id}, #{name}, #{password}, 'USER')
+		values (#{id}, #{name}, #{password}, 'user')
 		]]>
 	</insert>
 	

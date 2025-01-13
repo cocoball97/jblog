@@ -4,6 +4,13 @@ public class PostVo {
 	private Long id;
 	private String contents;
 	private String reg_date;
+	private String title;
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
 	private Long category_id;
 	
 	public Long getId() {

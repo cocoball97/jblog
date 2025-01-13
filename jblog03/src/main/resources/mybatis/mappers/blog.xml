@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="blog">
+	
+	<select id="findCategory" parameterType="string" resultType="categoryvo">
+		<![CDATA[
+		select name, description
+		  from category
+		 where id = #{id}
+		]]>	
+	</select>
+	
+	<select id="findPost" parameterType="string" resultType="postvo">
+		<![CDATA[
+		  select b.contents, b.title, b.reg_date 
+		    from category a 
+	    	join post b on a.id = b.category_id
+	  	   where a.blog_id = #{id}
+		]]>	
+	</select>
+	
+</mapper>

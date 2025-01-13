@@ -1,4 +1,4 @@
-package jblog.security;
+package mysite.security;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -19,13 +19,13 @@ public class LoginInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		
-		String id = request.getParameter("id");
+		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
-		UserVo authUser = userService.getUser(id, password);
+		UserVo authUser = userService.getUser(email, password);
 		
 		if(authUser == null) {
-			request.setAttribute("id", id);
+			request.setAttribute("email", email);
 			request.setAttribute("result", "fail");
 			request.getRequestDispatcher("/WEB-INF/views/user/login.jsp").forward(request, response);
 			return false;
@@ -33,10 +33,10 @@ public class LoginInterceptor implements HandlerInterceptor {
 		}
 		
 		HttpSession session = request.getSession();
-		session.setAttribute("authUser", authUser);		
+		session.setAttribute("authUser", authUser);
+		
 		response.sendRedirect(request.getContextPath());
-
-		// 컨트롤러 전달x
+		System.out.println("authUser:"+authUser);
 		return false;
 	}
 

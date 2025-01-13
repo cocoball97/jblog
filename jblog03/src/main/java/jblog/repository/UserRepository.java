@@ -20,11 +20,10 @@ public class UserRepository {
 	}
 
 	public UserVo findByIdAndPassword(String id, String password) {
-		return sqlSession.selectOne("user.findIdAndPassword", Map.of("id", id, "password", password));
+		return sqlSession.selectOne("user.findByIdAndPassword", Map.of("id", id, "password", password));
 	}
 	
 	public UserVo findById(String id) {
-		System.out.println("findById called with id: " + id); // 로그 추가
 		return sqlSession.selectOne("user.findById", id);
 	}
 }
