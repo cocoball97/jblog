@@ -1,6 +1,7 @@
 package jblog.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -15,8 +16,8 @@ public class CategoryRepository {
 		this.sqlSession = sqlSession;
 	}
 	
-	public List<CategoryVo> findCategory(String blog_id) {
-		return sqlSession.selectList("category.findCategory",blog_id);
+	public List<CategoryVo> findCategory(String id, Long categoryId) {
+		return sqlSession.selectList("category.findCategory",Map.of("id", id, "categoryId", categoryId));
 	}
 
 }

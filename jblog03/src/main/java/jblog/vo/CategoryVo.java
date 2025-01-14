@@ -4,7 +4,7 @@ public class CategoryVo {
 	Long id;
 	String name;
 	String description;
-	Long blog_id;
+	String blog_id;
 	
 	public Long getId() {
 		return id;
@@ -24,10 +24,11 @@ public class CategoryVo {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Long getBlog_id() {
+	public String getBlog_id() {
 		return blog_id;
 	}
-	public void setBlog_id(Long blog_id) {
+	public void setBlog_id(String blog_id) {
 		this.blog_id = blog_id;
 	}
+
 }

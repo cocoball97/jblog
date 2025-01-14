@@ -3,21 +3,12 @@
 
 <mapper namespace="blog">
 	
-	<select id="findCategory" parameterType="string" resultType="categoryvo">
+	<select id="findTitle" parameterType="string" resultType="blogvo">
 		<![CDATA[
-		select name, description
-		  from category
-		 where id = #{id}
+		  select title
+		    from blog 
+	  	   where blog_id = #{id}
 		]]>	
 	</select>
-	
-	<select id="findPost" parameterType="string" resultType="postvo">
-		<![CDATA[
-		  select b.contents, b.title, b.reg_date 
-		    from category a 
-	    	join post b on a.id = b.category_id
-	  	   where a.blog_id = #{id}
-		]]>	
-	</select>
-	
+		
 </mapper>

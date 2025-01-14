@@ -3,23 +3,23 @@
 
 <mapper namespace="post">
 
-	<select id="findPost" parameterType="string" resultType="postvo">
+	<select id="findPostList" parameterType="map" resultType="postvo">
 		<![CDATA[
-		  select b.contents, b.title, b.reg_date, b.category_id, b.id
+		  select b.contents, b.title, date_format(b.reg_date, '%Y/%m/%d') as reg_date, b.category_id, b.id, a.blog_id
 		    from category a 
 	    	join post b on a.id = b.category_id
-	       where a.blog_id = #{blog_id}
+	       where a.blog_id = #{id} and b.category_id = #{categoryId}
         order by b.reg_date DESC
 	       limit 5
 		]]>	
 	</select>
 	
-	<select id="findLatestPost" parameterType="string" resultType="postvo">
+	<select id="findPost" parameterType="map" resultType="postvo">
     <![CDATA[
-		  select b.contents, b.title, b.reg_date, b.category_id, b.id
+		  select b.contents, b.title, date_format(b.reg_date, '%Y/%m/%d') as reg_date, b.category_id, b.id, a.blog_id
 		    from category a
 		    join post b on a.id = b.category_id
-		   where a.blog_id = #{blog_id}
+		   where a.blog_id = #{id} and b.category_id = #{categoryId} and b.id = #{postId}
 		   order by b.reg_date DESC
 		   limit 1
     ]]>

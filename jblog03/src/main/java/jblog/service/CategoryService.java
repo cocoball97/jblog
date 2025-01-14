@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import ch.qos.logback.core.recovery.ResilientSyslogOutputStream;
 import jblog.repository.CategoryRepository;
 import jblog.vo.CategoryVo;
 
@@ -15,8 +16,11 @@ public class CategoryService {
 		this.categoryRepository = categoryRepository;
 	}
 	
-	public List<CategoryVo> getCategory(String blog_id) {
-		return categoryRepository.findCategory(blog_id);
+	public List<CategoryVo> getCategory(String id, Long categoryId) {
+		if (categoryId == 0L) {
+			categoryId = 1L;
+	    }
+		return categoryRepository.findCategory(id, categoryId);
 	}
 
 }

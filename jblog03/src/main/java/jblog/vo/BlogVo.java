@@ -4,6 +4,7 @@ public class BlogVo {
 	private Long blog_id;
 	private String title;
 	private String profile;
+	
 	public Long getBlog_id() {
 		return blog_id;
 	}

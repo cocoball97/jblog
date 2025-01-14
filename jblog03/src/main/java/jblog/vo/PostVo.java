@@ -5,13 +5,15 @@ public class PostVo {
 	private String contents;
 	private String reg_date;
 	private String title;
+	private Long category_id;
+	private String blog_id;
+	
 	public String getTitle() {
 		return title;
 	}
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	private Long category_id;
 	
 	public Long getId() {
 		return id;
@@ -36,5 +38,11 @@ public class PostVo {
 	}
 	public void setCategory_id(Long category_id) {
 		this.category_id = category_id;
+	}
+	public String getBlog_id() {
+		return blog_id;
+	}
+	public void setBlog_id(String blog_id) {
+		this.blog_id = blog_id;
 	}
 }

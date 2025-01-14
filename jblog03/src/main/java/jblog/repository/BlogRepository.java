@@ -3,6 +3,7 @@ package jblog.repository;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import jblog.vo.BlogVo;
 import jblog.vo.CategoryVo;
 import jblog.vo.PostVo;
 
@@ -14,14 +15,7 @@ public class BlogRepository {
 		this.sqlSession = sqlSession;
 	}
 
-	public CategoryVo findCategory(String id) {
-		return sqlSession.selectOne("blog.findCategory");
+	public BlogVo findTitle(String id) {
+		return sqlSession.selectOne("blog.findTitle", id);
 	}
-
-	public PostVo findPost(String id) {
-		return sqlSession.selectOne("blog.findPost");
-	}
-	
-	
-
 }

@@ -3,11 +3,11 @@
 
 <mapper namespace="category">
 	
-	<select id="findCategory" parameterType="string" resultType="categoryvo">
+	<select id="findCategory" parameterType="map" resultType="categoryvo">
 		<![CDATA[
-		select id, name, description
+		select id, name, blog_id
 		  from category
-		 where blog_id = #{blog_id}
+		 where blog_id = #{id}
 		 limit 4
 		]]>	
 	</select>

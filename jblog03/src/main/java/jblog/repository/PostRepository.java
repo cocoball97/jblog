@@ -1,6 +1,7 @@
 package jblog.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -15,8 +16,12 @@ public class PostRepository {
 		this.sqlSession = sqlSession;
 	}
 	
-	public List<PostVo> findPost(String blod_id) {
-		return sqlSession.selectList("post.findPost", blod_id);
+	public List<PostVo> findPostList(String id, Long categoryId) {
+		return sqlSession.selectList("post.findPostList", Map.of("id", id, "categoryId", categoryId));
+	}
+	
+	public List<PostVo> findPost(String id, Long categoryId, Long postId) {
+		return sqlSession.selectList("post.findPost", Map.of("id", id, "categoryId", categoryId, "postId", postId));
 	}
 
 }
