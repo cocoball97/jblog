@@ -20,4 +20,8 @@ public class CategoryRepository {
 		return sqlSession.selectList("category.findCategory",Map.of("id", id, "categoryId", categoryId));
 	}
 
+	public List<CategoryVo> findCategoryList(String id) {
+		return sqlSession.selectList("category.findCategoryList", id);
+	}
+
 }

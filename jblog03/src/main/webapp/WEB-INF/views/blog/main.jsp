@@ -13,24 +13,31 @@
 	<div id="container">
 		<div id="header">
 			<h1>${blogvo.title}</h1>
-			<ul>
-				<li><a href="${pageContext.request.contextPath }/user/login">로그인</a></li>
-				<li><a href="${pageContext.request.contextPath }/user/logout">로그아웃</a></li>
-				<li><a href="${pageContext.request.contextPath }/jblog03/admin/default">블로그 관리</a></li>
+			<ul class="menu">
+				<c:choose>
+					<c:when test="${empty authUser }" >
+						<li><a href="${pageContext.request.contextPath }/user/login">로그인</a></li>
+						<li><a href="${pageContext.request.contextPath }/user/join">회원가입</a></li>
+					</c:when>
+					<c:otherwise>			
+						<li><a href="${pageContext.request.contextPath }/user/logout">로그아웃</a></li>
+						<li><a href="${pageContext.request.contextPath }/${authUser.id}/admin">블로그 관리</a></li>
+					</c:otherwise>
+				</c:choose>	
 			</ul>
 		</div>
 		<div id="wrapper">
 			<div id="content">
 				<div class="blog-content">
-					<h4>${postvo[0].title}</h4>
+					<h4>${postvo.title}</h4>
 					<p>
-						${postvo[0].contents}
+						${postvo.contents}
 					<p>
 				</div>
 				<ul class="blog-list">
 					<c:forEach var="post" items="${postlistvo}">
 				        <li>
-				            <a href="${pageContext.request.contextPath}/jblog03/${post.category_id}/${post.id }">
+				            <a href="${pageContext.request.contextPath}/${authUser.id}/${post.category_id}/${post.id }">
 				                ${post.title}
 				            </a>
 				            <span>${post.reg_date}</span>
@@ -42,7 +49,10 @@
 
 		<div id="extra">
 			<div class="blog-logo">
+				<!-- 
 				<img src="${pageContext.request.contextPath}/assets/images/spring-logo.jpg">
+				-->
+				<img src="${pageContext.request.contextPath}${blogvo.profile}">
 			</div>
 		</div>
 

@@ -23,4 +23,8 @@ public class CategoryService {
 		return categoryRepository.findCategory(id, categoryId);
 	}
 
+	public Object getCategoryList(String id) {
+		return categoryRepository.findCategoryList(id);
+	}
+
 }

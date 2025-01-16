@@ -1,11 +1,11 @@
 package jblog.repository;
 
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import jblog.vo.BlogVo;
-import jblog.vo.CategoryVo;
-import jblog.vo.PostVo;
 
 @Repository
 public class BlogRepository {
@@ -15,7 +15,11 @@ public class BlogRepository {
 		this.sqlSession = sqlSession;
 	}
 
-	public BlogVo findTitle(String id) {
-		return sqlSession.selectOne("blog.findTitle", id);
+	public BlogVo findTitleAndProfile(String id) {
+		return sqlSession.selectOne("blog.findTitleAndProfile", id);
+	}
+
+	public void update(String blog_id, String title, String profileurl) {
+		sqlSession.update("blog.update", Map.of("blog_id", blog_id,"title", title, "profileurl", profileurl));
 	}
 }

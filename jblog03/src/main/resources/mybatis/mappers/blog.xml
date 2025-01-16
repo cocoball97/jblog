@@ -3,12 +3,21 @@
 
 <mapper namespace="blog">
 	
-	<select id="findTitle" parameterType="string" resultType="blogvo">
+	<select id="findTitleAndProfile" parameterType="string" resultType="blogvo">
 		<![CDATA[
-		  select title
+		  select title, profile
 		    from blog 
 	  	   where blog_id = #{id}
 		]]>	
 	</select>
 		
+	<update id="update" parameterType="blogvo">
+		<![CDATA[
+		update blog
+	   	   set title = #{title },
+			   profile = #{profileurl }
+	     where blog_id = #{blog_id}
+		]]>	
+	</update>
+	
 </mapper>

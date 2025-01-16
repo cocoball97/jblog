@@ -35,6 +35,8 @@ public class LoginInterceptor implements HandlerInterceptor {
 		HttpSession session = request.getSession();
 		session.setAttribute("authUser", authUser);		
 		response.sendRedirect(request.getContextPath());
+		//정상출력
+		System.out.println("authUser id:"+authUser.getId());
 
 		// 컨트롤러 전달x
 		return false;

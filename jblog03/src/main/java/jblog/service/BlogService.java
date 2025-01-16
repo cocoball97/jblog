@@ -14,7 +14,13 @@ public class BlogService {
 	}
 
 
-	public BlogVo getTitle(String id) {
-		return blogrepository.findTitle(id);
+	public BlogVo getTitleAndProfile(String id) {
+		return blogrepository.findTitleAndProfile(id);
+	}
+
+
+	public void updateBlog(String id, String title, String profileURL) {
+		blogrepository.update(id, title, profileURL);
+		
 	}
 }

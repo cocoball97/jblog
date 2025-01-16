@@ -12,5 +12,13 @@
 		]]>	
 	</select>
 
+	<select id="findCategoryList" parameterType="String" resultType="categoryvo">
+		<![CDATA[
+		select name
+		  from category
+		 where blog_id = #{id}
+		]]>	
+	</select>
+
 	
 </mapper>

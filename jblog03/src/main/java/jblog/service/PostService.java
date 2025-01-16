@@ -15,7 +15,7 @@ public class PostService {
 		this.postRepository = postRepository;
 	}
 	
-	public List<PostVo> getPost(String id, Long categoryId, Long postId) {
+	public PostVo getPost(String id, Long categoryId, Long postId) {
 		if (categoryId == 0L) {
 			categoryId = 1L;
 	    }
@@ -30,5 +30,9 @@ public class PostService {
 			categoryId = 1L;
 	    }
 		return postRepository.findPostList(id, categoryId);
+	}
+
+	public void insert(String id, String title, String categoryName, String contents) {
+		postRepository.insert(id, title, categoryName, contents);
 	}
 }

@@ -13,33 +13,45 @@
 	<div id="container">
 		<div id="header">
 			<h1>${blogvo.title}</h1>
-			<ul>
-				<li><a href="${pageContext.request.contextPath }/user/login">로그인</a></li>
-				<li><a href="${pageContext.request.contextPath }/user/logout">로그아웃</a></li>
-				<li><a href="${pageContext.request.contextPath }/admin/default">블로그 관리</a></li>
+			<ul class="menu">
+				<c:choose>
+					<c:when test="${empty authUser }" >
+						<li><a href="${pageContext.request.contextPath }/user/login">로그인</a></li>
+						<li><a href="${pageContext.request.contextPath }/user/join">회원가입</a></li>
+					</c:when>
+					<c:otherwise>			
+						<li><a href="${pageContext.request.contextPath }/user/logout">로그아웃</a></li>
+						<li><a href="${pageContext.request.contextPath }/${authUser.id}/admin/default">블로그 관리</a></li>
+					</c:otherwise>
+				</c:choose>	
 			</ul>
 		</div>
 		<div id="wrapper">
 			<div id="content" class="full-screen">
 				<ul class="admin-menu">
 					<li class="selected">기본설정</li>
-					<li><a href="${pageContext.request.contextPath }/admin/category">카테고리</a></li>
-					<li><a href="${pageContext.request.contextPath }/admin/write">글작성</a></li>
+					<li><a href="${pageContext.request.contextPath }/${authUser.id}/admin/category">카테고리</a></li>
+					<li><a href="${pageContext.request.contextPath }/${authUser.id}/admin/write">글작성</a></li>
 				</ul>
-				<form action="" method="post">
+				<form action="${pageContext.request.contextPath }/${authUser.id}/admin" method="post" enctype="multipart/form-data">
 	 		      	<table class="admin-config">
 			      		<tr>
 			      			<td class="t">블로그 제목</td>
-			      			<td><input type="text" size="40" name="title"></td>
+			      			<td><input type="text" size="40" name="title" value="${blogvo.title }"></td>
 			      		</tr>
-			      		<tr>
-			      			<td class="t">로고이미지</td>
-			      			<td><img src="${pageContext.request.contextPath}/assets/images/spring-logo.jpg"></td>      			
-			      		</tr>      		
-			      		<tr>
-			      			<td class="t">&nbsp;</td>
-			      			<td><input type="file" name="logo-file"></td>      			
-			      		</tr>           		
+						<tr>
+						    <td class="t">로고이미지</td>
+						    <td>
+						    	<img src="${pageContext.request.contextPath}${blogvo.profile}">
+						    	<input type="hidden" name="profile" value="${blogvo.profile}">    
+					    	</td>  
+						</tr>
+						<tr>
+							<td class="t">&nbsp;</td>    
+						    <td>
+						        <input type="file" name="logo-file" value="${blogvo.profile}">
+						    </td>
+						</tr>
 			      		<tr>
 			      			<td class="t">&nbsp;</td>
 			      			<td class="s"><input type="submit" value="기본설정 변경"></td>      			

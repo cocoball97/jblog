@@ -1,5 +1,7 @@
 package jblog.vo;
 
+import org.springframework.stereotype.Component;
+
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 

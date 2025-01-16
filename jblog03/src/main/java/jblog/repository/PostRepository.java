@@ -20,8 +20,12 @@ public class PostRepository {
 		return sqlSession.selectList("post.findPostList", Map.of("id", id, "categoryId", categoryId));
 	}
 	
-	public List<PostVo> findPost(String id, Long categoryId, Long postId) {
-		return sqlSession.selectList("post.findPost", Map.of("id", id, "categoryId", categoryId, "postId", postId));
+	public PostVo findPost(String id, Long categoryId, Long postId) {
+		return sqlSession.selectOne("post.findPost", Map.of("id", id, "categoryId", categoryId, "postId", postId));
+	}
+
+	public void insert(String id, String title, String categoryName, String contents) {
+		sqlSession.insert("post.insert", Map.of("id", id, "title", title, "categoryName", categoryName, "contents", contents));
 	}
 
 }

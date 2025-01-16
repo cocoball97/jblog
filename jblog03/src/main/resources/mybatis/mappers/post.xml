@@ -21,8 +21,17 @@
 		    join post b on a.id = b.category_id
 		   where a.blog_id = #{id} and b.category_id = #{categoryId} and b.id = #{postId}
 		   order by b.reg_date DESC
-		   limit 1
     ]]>
-</select>
+	</select>
+	
+	<insert id="insert" parameterType="Map">
+	    <![CDATA[
+		    insert into post (id, contents, reg_date, title, category_id)
+		    select null, #{contents}, now(), #{title}, category.id
+		    from category
+		    where category.name = #{categoryName}
+	    ]]>
+	</insert>	
+		
 	
 </mapper>
