@@ -3,6 +3,7 @@ package jblog.vo;
 public class CategoryVo {
 	Long id;
 	String name;
+	Long count;
 	String description;
 	String blog_id;
 	
@@ -29,6 +30,12 @@ public class CategoryVo {
 	}
 	public void setBlog_id(String blog_id) {
 		this.blog_id = blog_id;
+	}
+	public Long getCount() {
+		return count;
+	}
+	public void setCount(Long count) {
+		this.count = count;
 	}
 
 }

@@ -8,17 +8,27 @@
 		select id, name, blog_id
 		  from category
 		 where blog_id = #{id}
-		 limit 4
 		]]>	
 	</select>
 
 	<select id="findCategoryList" parameterType="String" resultType="categoryvo">
 		<![CDATA[
-		select name
-		  from category
+		select a.id, a.name, a.description, count(b.id) as count
+		  from category a
+left join post b on a.id = b.category_id
 		 where blog_id = #{id}
+	  group by a.id
+	  order by a.id desc;
 		]]>	
 	</select>
+	
+	<insert id="insert" parameterType="map">
+		<![CDATA[
+		insert
+		  into category
+		values (null, #{name}, #{description}, #{id})
+		]]>
+	</insert>
 
 	
 </mapper>

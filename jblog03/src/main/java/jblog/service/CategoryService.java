@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import ch.qos.logback.core.recovery.ResilientSyslogOutputStream;
 import jblog.repository.CategoryRepository;
 import jblog.vo.CategoryVo;
+import jblog.vo.UserVo;
 
 @Service
 public class CategoryService {
@@ -23,8 +24,12 @@ public class CategoryService {
 		return categoryRepository.findCategory(id, categoryId);
 	}
 
-	public Object getCategoryList(String id) {
+	public List<CategoryVo> getCategoryList(String id) {
 		return categoryRepository.findCategoryList(id);
+	}
+
+	public void insert(String id, String name, String description) {
+		categoryRepository.insert(id, name, description);
 	}
 
 }

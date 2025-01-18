@@ -24,4 +24,8 @@ public class CategoryRepository {
 		return sqlSession.selectList("category.findCategoryList", id);
 	}
 
+	public void insert(String id, String name, String description) {
+		sqlSession.insert("category.insert", Map.of("id",id, "name", name, "description", description));
+	}
+
 }

@@ -120,51 +120,29 @@ public class BlogController {
 		String profileURL = fileUploadService.restore(multipartFile);
 		
 		if(profileURL != null) {
-			System.out.println("이거 나오죠??");
 			blogVo.setProfile(profileURL);
 		}
 		
-		System.out.println("이거임"+profileURL);
-		System.out.println("객체 url값"+blogVo.getProfile());
-		
 		blogService.updateBlog(id, title,profileURL);
 		
-		// 전체 영역에서 사용 가능 (이미지 전체범위에서 써야지)
-		// update "servlet context" bean
-		servletContext.setAttribute("blogVo", blogVo);
-		
+//		// 전체 영역에서 사용 가능 (이미지 전체범위에서 써야지)
+//		// update "servlet context" bean
+//		servletContext.setAttribute("blogVo", blogVo);
+//		System.out.println("blogVo값 : "+blogVo);
+//		
 //		// update "application context" bean
 //		BlogVo blog = applicationContext.getBean(BlogVo.class);
 //		// blogVo -> blog 복사하여 데이터 동기화. 데이터 업데이트인듯?
 //		BeanUtils.copyProperties(blogVo, blog);
 		
-		return "redirect:/" + authUser.getId();
+		return "redirect:/" + authUser.getId() + "/admin";
 	}
 	
-	
-	
-	
-//	@Auth(role="ADMIN")
-//	@RequestMapping("/admin/category")
-//	public String adminCategory(@AuthUser UserVo authUser, Model model) {
-//		
-//		model.addAttribute("postvo", postService.getTitleAndCategoryAndContents(authUser.getId()));
-//		return "blog/admin-category";
-//	}
-	
-//	@GetMapping("/admin")
-//	public String adminDefault(
-//		@AuthUser UserVo authUser,
-//		Model model) {
-//		
-//		model.addAttribute("blogvo", blogService.getTitleAndProfile(authUser.getId()));
-//
-//		return "blog/admin-default";
-//	}
 	
 //	@Auth(role="ADMIN")
 	@GetMapping("/admin/write")
 	public String adminWrite(@AuthUser UserVo authUser, Model model) {
+		model.addAttribute("blogvo", blogService.getTitleAndProfile(authUser.getId()));
 		model.addAttribute("categoryvo", categoryService.getCategoryList(authUser.getId()));
 		return "blog/admin-write";
 	}
@@ -176,10 +154,28 @@ public class BlogController {
 		   @RequestParam("contents") String contents) {
 		
 		postService.insert(authUser.getId(), title, categoryName, contents);
-		System.out.println("된거임?");
-		return "redirect:/" + authUser.getId();
+		return "redirect:/" + authUser.getId() + "/admin/write";
 	}
 	
+	@GetMapping("/admin/category")
+	public String adminCategory(@AuthUser UserVo authUser, Model model) {
+		// application 범위에서 저장이 안됨
+//		BlogVo blogVo = (BlogVo) servletContext.getAttribute("blogVo");
+//		model.addAttribute("blogVo", blogVo);
+		
+		model.addAttribute("blogvo", blogService.getTitleAndProfile(authUser.getId()));
+		model.addAttribute("categoryvo", categoryService.getCategoryList(authUser.getId()));
+		return "blog/admin-category";
+	}
+	
+	@PostMapping("/admin/category")
+	public String adminCategory(@AuthUser UserVo authUser,
+			@RequestParam("name") String name,
+		    @RequestParam("desc") String desc) {
+		
+		categoryService.insert(authUser.getId(), name, desc);
+		return "redirect:/" + authUser.getId() + "/admin/category";
+	}
 
 	
 }
