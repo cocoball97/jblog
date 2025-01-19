@@ -15,7 +15,7 @@ import jblog.vo.UserVo;
 public class UserController {
 	private UserService userService;
 	
-	// private인데 수정
+	// private인데 수정blog.xml
 	public UserController(UserService userService) {
 		this.userService = userService;
 	}

@@ -22,4 +22,17 @@ public class BlogRepository {
 	public void update(String blog_id, String title, String profileurl) {
 		sqlSession.update("blog.update", Map.of("blog_id", blog_id,"title", title, "profileurl", profileurl));
 	}
+
+	public BlogVo find() {
+		return sqlSession.selectOne("blog.find");
+	}
+
+	public int deleteCategory(Long id) {
+		return sqlSession.delete("blog.deleteCategory", id);
+	}
+
+	public void insert(String id) {
+		sqlSession.insert("blog.insert", id);
+	}
+
 }

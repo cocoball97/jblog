@@ -2,7 +2,6 @@ package jblog.controller;
 
 import java.util.Optional;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.ServletContext;
+import jblog.security.Auth;
 import jblog.security.AuthUser;
 import jblog.service.BlogService;
 import jblog.service.CategoryService;
@@ -21,6 +21,7 @@ import jblog.service.FileUploadService;
 import jblog.service.PostService;
 import jblog.vo.BlogVo;
 import jblog.vo.UserVo;
+
 
 @Controller
 // asset이라는 사용자가 들어오면 정적 자원 처리에 문제가 발생할 수 있음
@@ -73,7 +74,7 @@ public class BlogController {
 		
 		model.addAttribute("blogvo", blogService.getTitleAndProfile(id));
 		
-		model.addAttribute("categoryvo", categoryService.getCategoryOne(id, categoryId));
+//		model.addAttribute("categoryvo", categoryService.getCategoryOne(id, categoryId));
         model.addAttribute("categoryvolist", categoryService.getCategory(id, categoryId));
         
         // 단일 글 - 카테고리 없다면 1번, post글 없다면 1번 글 노출(날짜순 역순 정렬되어 있음)
@@ -88,9 +89,7 @@ public class BlogController {
 	}
 	
 	
-//	@Auth(role="ADMIN")
-//	보안으로 인해 경로 방해 받는다... 접속이 안됨
-	
+	@Auth(role="ADMIN")	
 	@GetMapping("/admin")
 	public String adminDefault(
 		@AuthUser UserVo authUser,
@@ -101,7 +100,7 @@ public class BlogController {
 		return "blog/admin-default";
 	}
 	
-//	@Auth(role="ADMIN")
+	@Auth(role="ADMIN")
 	@PostMapping("/admin")
 	public String update(@AuthUser UserVo authUser,
 			   @PathVariable("id") String id,
@@ -121,21 +120,11 @@ public class BlogController {
 		
 		blogService.updateBlog(id, title,profileURL);
 		
-//		// 전체 영역에서 사용 가능 (이미지 전체범위에서 써야지)
-//		// update "servlet context" bean
-//		servletContext.setAttribute("blogVo", blogVo);
-//		System.out.println("blogVo값 : "+blogVo);
-//		
-//		// update "application context" bean
-//		BlogVo blog = applicationContext.getBean(BlogVo.class);
-//		// blogVo -> blog 복사하여 데이터 동기화. 데이터 업데이트인듯?
-//		BeanUtils.copyProperties(blogVo, blog);
-		
 		return "redirect:/" + authUser.getId() + "/admin";
 	}
 	
 	
-//	@Auth(role="ADMIN")
+	@Auth(role="ADMIN")
 	@GetMapping("/admin/write")
 	public String adminWrite(@AuthUser UserVo authUser, Model model) {
 		model.addAttribute("blogvo", blogService.getTitleAndProfile(authUser.getId()));
@@ -143,6 +132,7 @@ public class BlogController {
 		return "blog/admin-write";
 	}
 	
+	@Auth(role="ADMIN")
 	@PostMapping("/admin/write")
 	public String adminWrite(@AuthUser UserVo authUser,
 		   @RequestParam("title") String title,
@@ -153,24 +143,33 @@ public class BlogController {
 		return "redirect:/" + authUser.getId() + "/admin/write";
 	}
 	
+	@Auth(role="ADMIN")
 	@GetMapping("/admin/category")
 	public String adminCategory(@AuthUser UserVo authUser, Model model) {
-		// application 범위에서 저장이 안됨
-//		BlogVo blogVo = (BlogVo) servletContext.getAttribute("blogVo");
-//		model.addAttribute("blogVo", blogVo);
 		
 		model.addAttribute("blogvo", blogService.getTitleAndProfile(authUser.getId()));
 		model.addAttribute("categoryvo", categoryService.getCategoryList(authUser.getId()));
 		return "blog/admin-category";
 	}
 	
+	@Auth(role="ADMIN")
 	@PostMapping("/admin/category")
 	public String adminCategory(@AuthUser UserVo authUser,
 			@RequestParam("name") String name,
 		    @RequestParam("desc") String desc) {
 		
+
 		categoryService.insert(authUser.getId(), name, desc);
 		return "redirect:/" + authUser.getId() + "/admin/category";
+	}
+	
+	@Auth
+	@RequestMapping(value ="/admin/category/delete")
+	public String adminCategoryDelete(
+			@PathVariable("id") String id,
+			@RequestParam("category_id") Long category_id) {
+		categoryService.deleteCategory(category_id);
+		return "redirect:/" +  id + "/admin/category";
 	}
 
 	

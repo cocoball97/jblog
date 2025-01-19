@@ -20,6 +20,8 @@ left join post b on a.id = b.category_id
 	  group by a.id
 	  order by a.id desc;
 		]]>	
+		
+		
 	</select>
 		<select id="findCategoryOne" parameterType="map" resultType="categoryvo">
 		<![CDATA[
@@ -36,6 +38,24 @@ left join post b on a.id = b.category_id
 		values (null, #{name}, #{description}, #{id})
 		]]>
 	</insert>
-
+	
+	<insert id="initInsert" parameterType="String">
+		<![CDATA[
+		INSERT INTO category (id, name, description, blog_id)
+		VALUES 
+		    (NULL, "기본카테고리1", "기본설명1", #{id}),
+		    (NULL, "기본카테고리2", "기본설명2", #{id}),
+		    (NULL, "기본카테고리3", "기본설명3", #{id}),
+		    (NULL, "기본카테고리4", "기본설명4", #{id}),
+		    (NULL, "기본카테고리5", "기본설명5", #{id});
+		]]>
+	</insert>
+	
+	<delete id = "deleteCategory" parameterType="long">
+	    <![CDATA[
+		    delete from category
+	        where id = #{category_id}
+	    ]]>
+	</delete>
 	
 </mapper>

@@ -20,7 +20,7 @@ public class PostService {
 			categoryId = 1L;
 	    }
 		if(postId == 0L) {
-			return postRepository.findPostFirst(id, categoryId);
+			postId = 1L;
 		}
 		return postRepository.findPost(id, categoryId, postId);
 	}

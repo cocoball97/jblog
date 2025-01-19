@@ -8,6 +8,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>JBlog</title>
 <Link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/jblog.css">
+<script src="${pageContext.request.contextPath}/assets/js/jquery/jquery-1.9.0.js"></script>
+<script>
+function confirmDelete(postCount) {
+    if (postCount > 0) {
+        alert('삭제가 불가합니다. 먼저 해당 카테고리의 글을 삭제해주세요.');
+        return false;  // 삭제 진행 중단
+    }
+    return confirm('정말 삭제하시겠습니까?');  // 글이 없을 때만 실제 삭제 확인
+}
+</script>
 </head>
 <body>
 	<div id="container">
@@ -40,7 +50,19 @@
 				        <td>${category.name}</td>
 				        <td>${category.count}</td>
 				        <td>${category.description}</td>
-				        <td><img src="${pageContext.request.contextPath}/assets/images/delete.jpg"></td>
+				    
+ 						<td>
+                           <form action="${pageContext.request.contextPath}/${authUser.id}/admin/category/delete" 
+                                  method="post" 
+                                  onsubmit="return confirmDelete(${category.count});">
+                                <input type="hidden" name="category_id" value="${category.id}">
+                                <button type="submit" 
+                                        style="border: none; background: none; padding: 0; cursor: pointer;">
+                                    <img src="${pageContext.request.contextPath}/assets/images/delete.jpg" 
+                                         alt="삭제" title="카테고리 삭제">
+                                </button>
+                            </form>
+                        </td>
 				    </tr>
 			    </c:forEach>		  
 				</table>

@@ -41,9 +41,17 @@
 			      		</tr>
 						<tr>
 						    <td class="t">로고이미지</td>
-						    <td>
-						    	<img src="${pageContext.request.contextPath}${blogvo.profile}">
-						    	<input type="hidden" name="profile" value="${blogvo.profile}">    
+						    <td>  
+							   	<c:choose>
+							        <c:when test="${not empty blogvo.profile}">
+							            <img src="${pageContext.request.contextPath}${blogvo.profile}">
+							            <input type="hidden" name="profile" value="${blogvo.profile}">
+							        </c:when>
+							        <c:otherwise>
+							            <img src="${pageContext.request.contextPath}/assets/images/spring-logo.jpg">
+							            <input type="hidden" name="profile" value="/assets/images/spring-logo.jpg">
+							        </c:otherwise>
+							    </c:choose>
 					    	</td>  
 						</tr>
 						<tr>

@@ -30,4 +30,6 @@ public class PostRepository {
 	public void insert(String id, String title, String categoryName, String contents) {
 		sqlSession.insert("post.insert", Map.of("id", id, "title", title, "categoryName", categoryName, "contents", contents));
 	}
+
+
 }

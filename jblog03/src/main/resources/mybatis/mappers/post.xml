@@ -10,7 +10,6 @@
 	    	join post b on a.id = b.category_id
 	       where a.blog_id = #{id} and b.category_id = #{categoryId}
         order by b.reg_date DESC
-	       limit 5
 		]]>	
 	</select>
 	
@@ -44,5 +43,21 @@
 	    ]]>
 	</insert>	
 		
+	<insert id="initInsert" parameterType="String">
+		<![CDATA[
+		INSERT INTO post (id, contents, reg_date, title, category_id)
+		VALUES 
+		    (NULL, "컨텐츠1", now(), "제목1", 1),
+		    (NULL, "컨텐츠2", now(), "제목2", 1),
+		    (NULL, "컨텐츠3", now(),"제목3", 1),
+		    (NULL, "컨텐츠4", now(),"제목4", 1),
+		    (NULL, "컨텐츠5", now(),"제목5", 1);
+		    
+		    (NULL, "컨텐츠2-1", now(), "제목2-1", 2),
+		    (NULL, "컨텐츠3-1", now(), "제목3-1", 3),
+		    (NULL, "컨텐츠4-1", now(),"제목3-1", 4),
+		    (NULL, "컨텐츠5-1", now(),"제목5-1", 5)
+		]]>
+	</insert>
 	
 </mapper>

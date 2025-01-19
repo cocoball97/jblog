@@ -40,4 +40,9 @@ public class CategoryService {
 		System.out.println("service categoryid: "+categoryId);
 		return categoryRepository.findCategoryOne(id, categoryId);
 	}
+
+	public void deleteCategory(Long category_id) {
+		categoryRepository.deleteCategory(category_id);
+		
+	}
 }

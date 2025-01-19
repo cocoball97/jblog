@@ -23,6 +23,6 @@ public class BlogVo {
 	public void setProfile(String profile) {
 		this.profile = profile;
 	}
-	
+
 	
 }

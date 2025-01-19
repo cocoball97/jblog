@@ -21,7 +21,7 @@
 					</c:when>
 					<c:otherwise>			
 						<li><a href="${pageContext.request.contextPath }/user/logout">로그아웃</a></li>
-						<li><a href="${pageContext.request.contextPath }/${authUser.id}/admin">블로그 관리</a></li>
+						<li><a href="${pageContext.request.contextPath }/${blogvo.blog_id}/admin">블로그 관리</a></li>
 					</c:otherwise>
 				</c:choose>	
 			</ul>
@@ -49,15 +49,24 @@
 
 		<div id="extra">
 			<div class="blog-logo">
-				<img src="${pageContext.request.contextPath}${blogvo.profile}">
+				<c:choose>
+				    <c:when test="${not empty blogvo.profile}">
+				        <img src="${pageContext.request.contextPath}${blogvo.profile}" alt="User Profile">
+				        <input type="hidden" name="profile" value="${blogvo.profile}">
+				    </c:when>
+				    <c:otherwise>
+				        <img src="${pageContext.request.contextPath}/assets/images/spring-logo.jpg" alt="Default Profile">
+				        <input type="hidden" name="profile" value="/assets/images/spring-logo.jpg">
+				    </c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 
 		<div id="navigation">
-			<h2>${categoryvo.name}</h2>
+			<h2>카테고리</h2>
 				<c:forEach var="category" items="${categoryvolist}">
 			        <li>
-			            <a href="${pageContext.request.contextPath}/${authUser.id}/${category.id }">
+			            <a href="${pageContext.request.contextPath}/${blogvo.blog_id}/${category.id }">
 			                ${category.name}
 			            </a>
 			        </li>
