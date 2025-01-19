@@ -21,6 +21,13 @@ left join post b on a.id = b.category_id
 	  order by a.id desc;
 		]]>	
 	</select>
+		<select id="findCategoryOne" parameterType="map" resultType="categoryvo">
+		<![CDATA[
+		select id, name, blog_id
+		  from category
+		 where blog_id = #{id} and id = #{categoryId}
+		]]>	
+	</select>
 	
 	<insert id="insert" parameterType="map">
 		<![CDATA[

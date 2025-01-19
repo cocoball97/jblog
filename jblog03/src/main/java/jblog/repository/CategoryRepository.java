@@ -28,4 +28,8 @@ public class CategoryRepository {
 		sqlSession.insert("category.insert", Map.of("id",id, "name", name, "description", description));
 	}
 
+	public CategoryVo findCategoryOne(String id, Long categoryId) {
+		System.out.println("repository categoryid: "+categoryId);
+		return sqlSession.selectOne("category.findCategoryOne", Map.of("id", id, "categoryId", categoryId));
+	}
 }

@@ -28,8 +28,16 @@ public class CategoryService {
 		return categoryRepository.findCategoryList(id);
 	}
 
+	
 	public void insert(String id, String name, String description) {
 		categoryRepository.insert(id, name, description);
 	}
 
+	public CategoryVo getCategoryOne(String id, Long categoryId) {
+		if (categoryId == 0L) {
+			categoryId = 1L;
+	    }
+		System.out.println("service categoryid: "+categoryId);
+		return categoryRepository.findCategoryOne(id, categoryId);
+	}
 }

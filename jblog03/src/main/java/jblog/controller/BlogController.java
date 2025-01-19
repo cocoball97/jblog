@@ -60,14 +60,11 @@ public class BlogController {
 		if(path2.isPresent()) {
 			categoryId = path1.get();
 			postId = path2.get();
-//			System.out.println("====== 첫번째 categoryId : "+categoryId);
-//			System.out.println("====== 첫번쨰 postId : "+postId);
 		} 
-		// categoryId만 존재하는 경우a
+		// categoryId만 존재하는 경우
 		// 리스트 
 		else if(path1.isPresent()) {
 			categoryId = path1.get();
-//			System.out.println("====== 두번째 categoryId : "+categoryId);
 		}
 		
 		// 서비스에서 구현 (비즈니스라서 서비스에서 하느건가??)  status?
@@ -75,16 +72,15 @@ public class BlogController {
 		// postId == 0L -> default postId 결정
 		
 		model.addAttribute("blogvo", blogService.getTitleAndProfile(id));
-        model.addAttribute("categoryvo", categoryService.getCategory(id, categoryId));
+		
+		model.addAttribute("categoryvo", categoryService.getCategoryOne(id, categoryId));
+        model.addAttribute("categoryvolist", categoryService.getCategory(id, categoryId));
         
         // 단일 글 - 카테고리 없다면 1번, post글 없다면 1번 글 노출(날짜순 역순 정렬되어 있음)
         model.addAttribute("postvo", postService.getPost(id, categoryId, postId));
         // 아래 리스트
         model.addAttribute("postlistvo", postService.getPostList(id, categoryId));
-        
-        // postvo 인덱스 첫번쨰 값 했는데 이게 방법이 맞나...  당연히 아니네 순서가 날짜순이잖니 
-        model.addAttribute("categoryvoindex", categoryId);
-        model.addAttribute("postvoindex", postId);
+
 		
 		System.out.println("blogcontroller.main(" + id + ", " + categoryId + ", " + postId +")" );		
 		

@@ -49,18 +49,15 @@
 
 		<div id="extra">
 			<div class="blog-logo">
-				<!-- 
-				<img src="${pageContext.request.contextPath}/assets/images/spring-logo.jpg">
-				-->
 				<img src="${pageContext.request.contextPath}${blogvo.profile}">
 			</div>
 		</div>
 
 		<div id="navigation">
-			<h2>${categoryvo[categoryvoindex].name}</h2>
-				<c:forEach var="category" items="${categoryvo}">
+			<h2>${categoryvo.name}</h2>
+				<c:forEach var="category" items="${categoryvolist}">
 			        <li>
-			            <a href="${pageContext.request.contextPath}/jblog03/${category.blog_id}/${category.id }">
+			            <a href="${pageContext.request.contextPath}/${authUser.id}/${category.id }">
 			                ${category.name}
 			            </a>
 			        </li>
@@ -69,7 +66,7 @@
 		
 		<div id="footer">
 			<p>
-				<strong>Spring 이야기</strong> is powered by JBlog (c)2016
+				<strong>${blogvo.title}</strong> is powered by JBlog (c)2016
 			</p>
 		</div>
 	</div>

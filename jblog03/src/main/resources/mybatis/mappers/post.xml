@@ -24,6 +24,17 @@
     ]]>
 	</select>
 	
+	<select id="findPostFirst" parameterType="map" resultType="postvo">
+    <![CDATA[
+		  select b.contents, b.title, date_format(b.reg_date, '%Y/%m/%d') as reg_date, b.category_id, b.id, a.blog_id
+		    from category a
+		    join post b on a.id = b.category_id
+		   where a.blog_id = #{id} and b.category_id = #{categoryId}
+		   order by b.reg_date DESC
+		   limit 1;
+    ]]>
+	</select>
+	
 	<insert id="insert" parameterType="Map">
 	    <![CDATA[
 		    insert into post (id, contents, reg_date, title, category_id)
